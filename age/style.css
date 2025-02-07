@@ -1,0 +1,30 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+input {
+  width: fit-content;
+  height: 50px;
+  font-size: 24px;
+}
+.smallcont {
+  display: flex;
+}
+button {
+  width: 50px;
+  height: 50px;
+  border: transparent;
+  margin-left: 20px;
+  background-color: gray;
+  border-radius: 10px;
+  font-size: 24px;
+}
+.age {
+  width: 500px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+}
