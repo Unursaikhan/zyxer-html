@@ -11,7 +11,10 @@ next.addEventListener("click", () => {
   k++;
   step[k].classList.add("checked");
   text[k].classList.add("steps-flex");
-
+  const img = document.createElement("img");
+  img.classList.add("img");
+  img.src = "imag/—Pngtree—green check mark icon design_6219078.png";
+  img.alt = "Checkmark";
   const percentage = (k / (step.length - 1)) * 100;
   barFront.style.width = `${percentage}%`;
   prev.classList.remove("disabled");
@@ -30,6 +33,9 @@ prev.addEventListener("click", () => {
   step[k].classList.remove("checked");
   text[k].classList.remove("steps-flex");
   k--;
+  img.classList.remove("img");
+  img.src = "imag/—Pngtree—green check mark icon design_6219078.png";
+  img.alt = "Checkmark";
 
   const percentage = (k / (step.length - 1)) * 100;
   barFront.style.width = `${percentage}%`;

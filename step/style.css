@@ -91,3 +91,9 @@ img {
 .disabled {
   background-color: lightgray;
 }
+.img-red {
+  z-index: 1;
+}
+.img-green {
+  z-index: 2;
+}
