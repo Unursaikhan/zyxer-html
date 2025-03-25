@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { Rmenu } from "./Rmenu";
+import { Featured } from "./Featured";
+import { Past } from "./Past";
+import { Favourite } from "./Favourite";
 
 export const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState("menu");
@@ -62,6 +65,9 @@ export const Menu = () => {
         </div>
       </div>
       {selectedMenu === "menu" && <Rmenu />}
+      {selectedMenu === "featured" && <Featured />}
+      {selectedMenu === "past" && <Past />}
+      {selectedMenu === "saved" && <Favourite />}
     </div>
   );
 };

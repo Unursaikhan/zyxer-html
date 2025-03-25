@@ -1,41 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Data } from "./const";
 import { HeartSvgOutline, HeartSvgFilled } from "./assets/HeartSvg";
+export const Past = () => {
+  const [selectedMenu, setSelectedMenu] = useState(null);
 
-export const Rmenu = () => {
-  const [selectedMenu, setSelectedMenu] = useState("Coffee");
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const storedData = localStorage.getItem("menuData");
-    if (storedData) {
-      setData(JSON.parse(storedData));
-    } else {
-      setData(Data);
-    }
-  }, []);
-
-  const filteredData = selectedMenu
-    ? data.filter((item) => item.id === selectedMenu)
-    : data;
-
-  const handleToggleFavorite = (itemName) => {
-    const updatedData = data.map((item) => {
-      if (item.name === itemName) {
-        const updatedItem = { ...item, favourite: !item.favourite };
-        return updatedItem;
-      }
-      return item;
-    });
-
-    setData(updatedData);
-    localStorage.setItem("menuData", JSON.stringify(updatedData));
-  };
+  const filteredData = Data.filter((item) => item.past === "yes");
 
   const handleSelectItem = (id) => {
     setSelectedMenu(id === selectedMenu ? null : id);
+  };
+  const handleToggleFavorite = (itemName) => {
+    const updatedData = data.map((item) => {
+      if (item.name === itemName) {
+        return { ...item, favourite: !item.favourite };
+      }
+      return item;
+    });
+    setData(updatedData);
+    localStorage.setItem("menuData", JSON.stringify(updatedData));
   };
 
   return (
@@ -45,7 +29,6 @@ export const Rmenu = () => {
           <div
             className="pl-[24px] py-[13.5px] text-[24px] font-semibold"
             key={item}
-            onClick={() => handleSelectItem(item)}
             style={{
               color: selectedMenu === item ? "#AA714A" : "#28282A",
             }}
