@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const main = [
   {
     title: "Dear Santa",
@@ -65,23 +67,9 @@ export const Upcoming = () => {
     <div className="w-full px-[20px] lg:px-[80px] flex-col lg:mb-[52px] mb-[32px]">
       <div className="mb-[32px] w-full h-[36px] flex justify-between">
         <h2 className="font-bold text-[24px]">Upcoming</h2>
-        <div className="flex items-center gap-[8px]">
-          See more
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3.3335 8.00016H12.6668M12.6668 8.00016L8.00016 3.3335M12.6668 8.00016L8.00016 12.6668"
-              stroke="#18181B"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </div>
+        <Link href={"/UpcomingSeemore"} className="flex items-center gap-[8px]">
+          See more &#8594;
+        </Link>
       </div>
       <div className="grid lg:grid-cols-5 grid-cols-2 w-full h-fit lg:gap-[32px] gap-[20px]">
         {main.map((item) => {
