@@ -1,98 +1,93 @@
-import { Footer } from "../components/Footer";
-import { Navigation } from "../components/Navigation";
-const main = [
-  {
-    title: "Dear Santa",
-    image: "/upcoming/up1.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "How To Train Your Dragon Live Action",
-    image: "/upcoming/up2.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "Alien Romulus",
-    image: "/upcoming/up3.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "From the Ashes",
-    image: "/upcoming/up4.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "Space Dogg",
-    image: "/upcoming/up5.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "The Order",
-    image: "/upcoming/up6.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "Y2K",
-    image: "/upcoming/up7.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "Solo Leveling:‎ ‎ ‎ ‎ ‎ ReAwakening",
-    image: "/upcoming/up8.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "Get Away",
-    image: "/upcoming/up9.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-  {
-    title: "Sonic the Hedgehog 3",
-    image: "/upcoming/up10.png",
-    rating: "6.9/10",
-    star: "/carousel/star.png",
-  },
-];
+"use client";
+import Link from "next/link";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Footer } from "../_components/Footer";
+import { Navigation } from "../_components/Navigation";
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Movie } from "../_components/Upcoming";
+import { Pagg } from "./_components/Pagnition";
+const ACCESS_TOKEN =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjI5NjAxYzc3MWJiNjVhNDQxOGRkNDc5MzEzZWVjYSIsIm5iZiI6MTc0MzQwNTc5Ni4zMzIsInN1YiI6IjY3ZWE0MmU0NzAwYTZhOTRjNmU1N2JhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ukgjSLlweWW_iLKPPEo75uBFjp48H1trXme9bnnabkM";
+
+type Response = {
+  results: Movie[];
+  total_pages: number;
+};
+
 export default function Home() {
+  const [page, setPage] = useState(1);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [last, setLast] = useState(1);
+
+  useEffect(() => {
+    const getMoviesByAxios = async () => {
+      const { data } = await axios.get<Response>(
+        `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        }
+      );
+
+      setMovies(data.results);
+      setLast(data.total_pages);
+    };
+    getMoviesByAxios();
+  }, [page]);
+
   return (
     <div className="w-full flex justify-center">
-      <div className="w-[375px] lg:w-[1440px] bg-white flex-col">
-        <Navigation />
-        <div className="px-20 mb-[32px] w-full h-[36px] flex justify-between">
+      <div className="w-[375px] lg:w-[1440px] bg-white dark:bg-black flex-col">
+        <div className=" px-5 lg:px-20 mb-[32px] w-full h-[36px] flex justify-between">
           <h2 className="font-bold text-[24px]">Upcoming</h2>
         </div>
-        <div className="px-20 grid lg:grid-cols-5 grid-cols-2 w-full h-fit lg:gap-[32px] gap-[20px]">
-          {main.map((item) => {
+        <div className="px-5 lg:px-20 grid lg:grid-cols-5 grid-cols-2 w-full h-fit lg:gap-[32px] gap-[20px] mb-[32px]">
+          {movies.map((movie) => {
             return (
-              <div
-                className="flex-col gap-y-[4px] justify-center relative"
-                key={item.title}
+              <Link
+                className="flex-col gap-y-[4px] justify-center relative "
+                href={`/movie/${movie.id}`}
+                key={movie.id}
               >
-                <img src={item.image} alt={item.title} />
-                <div className="absolute top-0 w-[159px] h-[233px] lg:w-[230px] lg:h-[340px] bg-black opacity-0 hover:opacity-50">
-                  {" "}
-                </div>
-                <div className="bg-[#F4F4F5] w-full h-[95px] flex p-[8px]">
+                <img
+                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  className="hover:scale-95"
+                />
+                <div className="bg-[#F4F4F5] dark:bg-[#27272A] dark:text-white w-full h-[95px] flex p-[8px]">
                   <div>
                     <div className="flex items-center gap-1 mb-[4px]">
-                      <img src={item.star} alt="star" />
-                      <span className="text-black">{item.rating}</span>
+                      <img
+                        src="/carousel/star.png"
+                        alt="star"
+                        className="dark:hidden"
+                      />
+                      <img
+                        src="carousel/stardark.png"
+                        alt="darkstar"
+                        className="hidden dark:flex w-[24px] h-[25px]"
+                      />
+                      <span className="">{movie.vote_average}/10</span>
                     </div>
-                    <h4 className="text-black">{item.title}</h4>
+                    <h4 className="">{movie.title}</h4>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
+        </div>
+        <div className="mb-[76px] flex justify-end">
+          <Pagg page={page} setPage={setPage} last={last} />
         </div>
         <Footer />
       </div>

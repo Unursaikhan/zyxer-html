@@ -24,6 +24,12 @@ import {
 import { Up } from "../assets/Up";
 import { Right } from "../assets/Right";
 import Link from "next/link";
+import { Sun } from "../assets/Sun";
+import { DownDark } from "../assets/Downdark";
+import { Updark } from "../assets/UpDark";
+import { Arrowdark } from "../assets/Arrowdark";
+import { Arrow } from "../assets/Arrow";
+import { Searchdark } from "../assets/Searchdark";
 const genres = [
   {
     genre: "Action",
@@ -55,13 +61,18 @@ const genres = [
   { genre: "War" },
   { genre: "Western" },
 ];
-export const Navigation = () => {
+type NavigationType = {
+  isDark: boolean;
+  setIsDark: (value: boolean) => void;
+};
+
+export const Navigation = ({ isDark, setIsDark }: NavigationType) => {
   const [clicked, setClicked] = useState(false);
   const toggle = () => {
     setClicked((prevState) => !prevState);
   };
   return (
-    <div className="w-full h-[59px] px-[20px] lg:px-[80px] flex items-center lg:mb-[24px]">
+    <div className="w-[1440px] h-[59px] px-[20px] lg:px-[80px] flex items-center lg:mb-[24px] dark:text-white dark:bg-black">
       <div className="w-full h-[35px] flex items-center justify-between">
         <Link href={"/"}>
           <Logo />
@@ -72,7 +83,20 @@ export const Navigation = () => {
               onClick={toggle}
               className="flex items-center gap-[4px]"
             >
-              <div>{clicked ? <Down /> : <Up />}</div> Genre
+              <div>
+                {clicked ? (
+                  isDark ? (
+                    <DownDark />
+                  ) : (
+                    <Down />
+                  )
+                ) : isDark ? (
+                  <Updark />
+                ) : (
+                  <Up />
+                )}
+              </div>{" "}
+              Genre
             </PopoverTrigger>
             <PopoverContent className="w-[585px]  flex flex-col">
               <div className="text-[24px] font-semibold mb-1">Genres</div>
@@ -88,20 +112,7 @@ export const Navigation = () => {
                       variant="outline"
                     >
                       {item.genre}
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6 12L10 8L6 4"
-                          stroke="#09090B"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      {isDark ? <Arrowdark /> : <Arrow />}
                     </Button>
                   );
                 })}
@@ -110,7 +121,7 @@ export const Navigation = () => {
           </Popover>
 
           <div className="lg:w-[379px] h-full flex px-[12px] items-center rounded-[6px] gap-[12px] border border-[#E4E4E7]">
-            <Search />
+            {isDark ? <Searchdark /> : <Search />}
             <input
               placeholder="Search.."
               className="w-full h-full border-none placeholder:text-[#71717A] hidden lg:flex"
@@ -119,10 +130,13 @@ export const Navigation = () => {
         </div>
         <div className="flex gap-[12px]">
           <div className="w-[36px] h-[36px] flex lg:hidden justify-center items-center  border border-[#E4E4E7] rounded-[10px]">
-            <Search />
+            {isDark ? <Searchdark /> : <Search />}
           </div>
-          <div className="w-[36px] h-[36px] flex justify-center items-center  border border-[#E4E4E7] rounded-[10px]">
-            <Moon />
+          <div
+            onClick={() => setIsDark(!isDark)}
+            className="w-[36px] h-[36px] flex justify-center items-center  border border-[#E4E4E7] rounded-[10px]"
+          >
+            <div>{isDark ? <Sun /> : <Moon />}</div>
           </div>
         </div>
       </div>
