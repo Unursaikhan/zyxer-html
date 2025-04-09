@@ -59,10 +59,9 @@ export const Upcoming = () => {
             >
               <img
                 src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                className="hover:scale-95"
               />
-              <div className="absolute top-0 w-[159px] h-[233px] lg:w-[230px] lg:h-[340px] bg-black opacity-0 hover:opacity-50">
-                {" "}
-              </div>
+
               <div className="bg-[#F4F4F5] dark:bg-[#27272A] dark:text-white w-full h-[95px] flex p-[8px]">
                 <div className="">
                   <div className="flex items-center gap-1 mb-[4px]">

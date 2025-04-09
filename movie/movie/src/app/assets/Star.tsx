@@ -11,8 +11,8 @@ export const Star = () => {
         d="M14.0002 2.33337L17.6052 9.63671L25.6668 10.815L19.8335 16.4967L21.2102 24.5234L14.0002 20.7317L6.79016 24.5234L8.16683 16.4967L2.3335 10.815L10.3952 9.63671L14.0002 2.33337Z"
         fill="#FDE047"
         stroke="#FDE047"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

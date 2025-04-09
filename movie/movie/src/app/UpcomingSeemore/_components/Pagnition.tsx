@@ -30,7 +30,9 @@ export const Pagg = ({ page, setPage, last }: PaggProps) => {
         <PaginationItem>
           <PaginationLink
             href="#"
-            className={page === 1 ? "border border-black" : "border-0"}
+            className={
+              page === 1 ? "border border-black dark:border-white" : "border-0"
+            }
             onClick={() => page !== 1 && setPage(1)}
           >
             1
@@ -54,7 +56,11 @@ export const Pagg = ({ page, setPage, last }: PaggProps) => {
             onClick={() => {
               page === 1 ? setPage(2) : "";
             }}
-            className={page === 1 ? "border-none" : "border border-black"}
+            className={
+              page === 1
+                ? "border-none"
+                : "border border-black dark:border-white"
+            }
           >
             {page === 1 ? 2 : page}
           </PaginationLink>

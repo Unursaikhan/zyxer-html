@@ -1,118 +1,86 @@
+"use client";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import Link from "next/link";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Star } from "../assets/Star";
+const ACCESS_TOKEN =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYzgxODUwMTFjZDUyNTJiNGViY2I4ZjA4OWJkMWRlOSIsIm5iZiI6MTc0MzQwMzI2OS43NjYsInN1YiI6IjY3ZWEzOTA1YTk4ZGM4MTNiMGY3MDQxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j1XLqvV8qnfJkxisJJn-f7LvyMPNnPkMeUkdvzEL3mU";
+
+export type Movie = {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  popularity: number;
+  poster_path: string;
+  title: string;
+  overview: string;
+  vote_average: string;
+};
+type Response = {
+  results: Movie[];
+};
 export const Carousel = () => {
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    const getMoviesByAxios = async () => {
+      const { data } = await axios.get(
+        "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+        {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        }
+      );
+      setMovies(data.results);
+    };
+    getMoviesByAxios();
+  });
+
   return (
-    <div className=" w-[375px] lg:w-[1440px] mb-[52px] flex overflow-hidden relative">
+    <div className="w-[375px] lg:w-[1440px] flex overflow-hidden relative lg:mb-14">
       <div className="w-fit flex animate-wiggle relative">
-        <div className=" w-[375px] lg:w-[1440px] relative ">
-          <img
-            className="lg:w-[1440px] lg:h-[600px] w-[375px] h-[246px]"
-            src="/carousel/wicked.png"
-          ></img>
-          <div className="w-[375px] lg:w-[404px]  flex flex-col gap-4 lg:absolute lg:top-[178px] lg:left-[140px] p-5">
-            <div className="w-[325px]  lg:h-[112px] flex lg:flex-col">
-              <div className="flex flex-col w-[252px]">
-                <p className="lg:text-white text-black  dark:text-white">
-                  Now Playing:
-                </p>
-                <p className="lg:text-white text-black  dark:text-white text-[36px] font-bold">
-                  Wicked
-                </p>
+        {movies.map((movie) => (
+          <div key={movie.id} className="w-[375px] lg:w-[1440px] relative">
+            <Link href={`/movie/${movie.id}`}>
+              <img
+                className="lg:w-[1440px] lg:h-[600px] w-[375px] h-[246px]"
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+              />
+            </Link>
+            <div className="w-[375px] lg:w-[404px] flex flex-col gap-4 lg:absolute lg:top-[178px] lg:left-[140px] p-5">
+              <div className="w-[325px] lg:h-[112px] flex lg:flex-col">
+                <div className="flex flex-col w-[252px]">
+                  <p className="lg:text-white text-black dark:text-white">
+                    Now Playing:
+                  </p>
+                  <p className="lg:text-white text-black text-[36px] font-bold dark:text-white ">
+                    {movie.title}
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <Star />
+                  <p className="lg:text-white text-black dark:text-white">
+                    {movie.vote_average}/10
+                  </p>
+                </div>
               </div>
-              <div className=" flex  items-center">
-                <img src="/carousel/star.png"></img>
-                <p className="lg:text-white text-black  dark:text-white">
-                  6.9/10
-                </p>
-              </div>
-            </div>
-            <p className="lg:text-white text-black dark:text-white">
-              Elphaba, a misunderstood young woman because of her green skin,
-              and Glinda, a popular girl, become friends at Shiz University in
-              the Land of Oz. After an encounter with the Wonderful Wizard of
-              Oz, their friendship reaches a crossroads.{" "}
-            </p>
-            <button className="w-[145px] h-[40px] lg:bg-white rounded-[8px] flex gap-2 items-center px-4 bg-black dark:bg-white text-white dark:text-black lg:text-black">
-              &#9655; Watch Trailer
-            </button>
-          </div>
-          <button className="max-sm:hidden w-[40px] h-[40px] bg-white flex justify-center items-center absolute top-[280px] left-[1300px] rounded-[9999px]">
-            &gt;
-          </button>
-        </div>
-        <div className=" w-[375px] lg:w-[1440px] relative ">
-          <img
-            className="lg:w-[1440px] lg:h-[600px] w-[375px] h-[246px]"
-            src="/carousel/gladiator.png"
-          ></img>
-          <div className="w-[375px] lg:w-[404px]  flex flex-col gap-4 lg:absolute lg:top-[178px] lg:left-[140px] p-5">
-            <div className="w-[325px]  lg:h-[112px] flex lg:flex-col">
-              <div className="flex flex-col w-[252px]">
-                <p className="lg:text-white text-black dark:text-white">
-                  Now Playing:
-                </p>
-                <p className="lg:text-white text-black  dark:text-white text-[36px] font-bold">
-                  Gladiator 2
-                </p>
-              </div>
-              <div className=" flex  items-center">
-                <img src="/carousel/star.png"></img>
-                <p className="lg:text-white text-black  dark:text-white">
-                  6.9/10
-                </p>
+              <p className="lg:text-white text-black dark:text-white">
+                {movie.overview}
+              </p>
+              <div className="w-[145px] h-[40px] lg:bg-white rounded-[8px] flex gap-2 items-center px-4 bg-black text-white lg:text-black dark:bg-[#555556] dark:text-white hover:scale-110">
+                <Dialog>
+                  <DialogTrigger> &#9655; Watch Trailer</DialogTrigger>
+                  <DialogContent>
+                    <img src="/carousel/trailer.png" alt="trailer" />
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
-            <p className="lg:text-white text-black  dark:text-white">
-              After his home is conquered by the tyrannical emperors who now
-              lead Rome, Lucius is forced to enter the Colosseum and must look
-              to his past to find strength to return the glory of Rome to its
-              people.
-            </p>
-            <button className="w-[145px] h-[40px] lg:bg-white rounded-[8px] flex gap-2 items-center px-4 bg-black dark:bg-white text-white dark:text-black lg:text-black">
-              &#9655; Watch Trailer
-            </button>
           </div>
-          <button className="max-sm:hidden w-[40px] h-[40px] bg-white flex justify-center items-center absolute top-[280px] left-[44px] rounded-[9999px]">
-            &lt;
-          </button>
-          <button className="max-sm:hidden w-[40px] h-[40px] bg-white flex justify-center items-center absolute top-[280px] left-[1300px] rounded-[9999px]">
-            &gt;
-          </button>
-        </div>
-        <div className="w-[375px]  lg:w-[1440px] relative ">
-          <img
-            className="lg:w-[1440px] lg:h-[600px] w-[375px] h-[246px]"
-            src="/carousel/moana.png"
-          ></img>
-          <div className="w-[375px] lg:w-[404px]  flex flex-col gap-4 lg:absolute lg:top-[178px] lg:left-[140px] p-5">
-            <div className="w-[325px]  lg:h-[112px] flex lg:flex-col">
-              <div className="flex flex-col w-[252px]">
-                <p className="lg:text-white text-black dark:text-white">
-                  Now Playing:
-                </p>
-                <p className="lg:text-white text-black dark:text-white text-[36px] font-bold">
-                  Moana 2
-                </p>
-              </div>
-              <div className=" flex  items-center">
-                <img src="/carousel/star.png"></img>
-                <p className="lg:text-white text-black  dark:text-white">
-                  6.9/10
-                </p>
-              </div>
-            </div>
-            <p className="lg:text-white text-black  dark:text-white">
-              After receiving an unexpected call from her wayfinding ancestors,
-              Moana must journey to the far seas of Oceania and into dangerous,
-              long-lost waters for an adventure unlike anything she's ever
-              faced.
-            </p>
-            <button className="w-[145px] h-[40px] lg:bg-white rounded-[8px] flex gap-2 items-center px-4 bg-black dark:bg-white text-white dark:text-black lg:text-black">
-              &#9655; Watch Trailer
-            </button>
-          </div>
-          <button className="max-sm:hidden w-[40px] h-[40px] bg-white flex justify-center items-center absolute top-[280px] left-[44px] rounded-[9999px]">
-            &lt;
-          </button>
-        </div>
+        ))}
       </div>
     </div>
   );

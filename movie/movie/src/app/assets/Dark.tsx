@@ -11,8 +11,8 @@ export const Dark = () => {
         d="M13.9999 2.33337L17.6049 9.63671L25.6666 10.815L19.8333 16.4967L21.2099 24.5234L13.9999 20.7317L6.78992 24.5234L8.16659 16.4967L2.33325 10.815L10.3949 9.63671L13.9999 2.33337Z"
         fill="#FAFAFA"
         stroke="#FAFAFA"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

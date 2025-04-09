@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { Navigation } from "./_components/Navigation";
+import { GenreProvider } from "./_components/GenreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <div className="flex justify-center">
           <Navigation isDark={isDark} setIsDark={setIsDark} />
         </div>
-        {children}
+        <GenreProvider>{children}</GenreProvider>
       </body>
     </html>
   );
