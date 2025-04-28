@@ -10,7 +10,7 @@ import axios from "axios";
 
 export const Catogories = () => {
   const [selected, setSelected] = useState<string | null>(null);
-  const [categoriess, setCategoriess] = useState([]);
+  const [categoriess, setCategoriess] = useState<any[]>([]);
 
   const getCategories = async () => {
     try {
@@ -27,39 +27,6 @@ export const Catogories = () => {
   }, []);
   console.log(categoriess);
 
-  const categories = [
-    {
-      name: "Appetizers",
-    },
-    {
-      name: "Salads",
-    },
-    {
-      name: "Pizzas",
-    },
-    {
-      name: "Lunch favorites",
-    },
-    {
-      name: "Main dishes",
-    },
-    {
-      name: "Fish & Sea foods",
-    },
-    {
-      name: "Side dish ",
-    },
-    {
-      name: "Brunch",
-    },
-    {
-      name: "Desserts ",
-    },
-    {
-      name: "Beverages",
-    },
-  ];
-
   const handleClick = (id: string | null) => {
     setSelected(id === selected ? null : id);
   };
@@ -68,7 +35,7 @@ export const Catogories = () => {
       <h1 className="ml-10 font-semibold text-white text-[30px]">Categories</h1>
       <div className="flex gap-2 justify-between items-center">
         <img src="Icon Button.png" alt="" />
-        <div className="w-full overflow-x-hidden flex gap-2">
+        <div className="w-full overflow-x-scroll overscroll-x-contain flex gap-2">
           {categoriess.map((item, index) => (
             <Badge
               className={`${

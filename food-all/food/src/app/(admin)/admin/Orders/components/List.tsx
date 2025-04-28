@@ -9,7 +9,7 @@ export const List = () => {
     <div className="w-[1440px] bg-[#F4F4F5] gap-6 flex">
       <div className="w-[205px] h-screen flex gap-10 pt-9 px-5 flex-col bg-white">
         <div className="flex gap-2">
-          <img src="Screenshot 2024-12-17 at 18.02.18 1 (Traced).png" alt="" />
+          <img src="/Screenshot 2024-12-17 at 18.02.18 1 (Traced).png" alt="" />
           <div className="text-[18px] font-semibold">
             NomNom
             <p className="text-[#71717A] font-light text-[12px]">
