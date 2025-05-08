@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Special } from "./components/Specialoffer";
 import { Catogories } from "./components/Categories";
-import { Menu } from "./components/Foods";
 
 export default function Home() {
   return (

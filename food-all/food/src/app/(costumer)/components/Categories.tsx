@@ -1,17 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Menu } from "./Foods";
-import { Appetizers } from "./Appetizers";
-import { Salad } from "./Salad";
-import { LunchFav } from "./LunchFav";
-import { MainDishes } from "./MainDishes";
+
+import { AllFoodsCostumer } from "./Foods";
 import { Badge } from "@/components/ui/badge";
 import axios from "axios";
+import { number } from "zod";
 
 export const Catogories = () => {
   const [selected, setSelected] = useState<string | null>(null);
   const [categoriess, setCategoriess] = useState<any[]>([]);
-
+  const [quantity, setQuantity] = useState<number>(1);
   const getCategories = async () => {
     try {
       const res = await axios.get("http://localhost:3001/category");
@@ -30,21 +28,44 @@ export const Catogories = () => {
   const handleClick = (id: string | null) => {
     setSelected(id === selected ? null : id);
   };
+  // const filteredCategory = () => {
+  //   if (selected === null) {
+  //     return categoriess;
+  //   }
+  //   return categoriess.filter((item) => item._id == selected);
+  // };
+  // const filteredCategory = if(selected===null{
+  //   return categoriess
+  // }
+  // else{
+  // return categoriess.filter((item) => item._id == selected)
+  // });
+  // const filteredCategory =
+  //   selected === null
+  //     ? categoriess
+  //     : categoriess.filter((item) => item._id == selected);
+  const filteredCategory = categoriess.filter((item) => {
+    if (selected == null) {
+      return true;
+    } else {
+      return item._id == selected;
+    }
+  });
   return (
     <div className="px-12 py-8 flex flex-col gap-9">
       <h1 className="ml-10 font-semibold text-white text-[30px]">Categories</h1>
       <div className="flex gap-2 justify-between items-center">
         <img src="Icon Button.png" alt="" />
-        <div className="w-full overflow-x-scroll overscroll-x-contain flex gap-2">
+        <div className="w-full overflow-x-auto flex gap-2">
           {categoriess.map((item, index) => (
             <Badge
               className={`${
-                item.categoryName === selected ? "text-white" : "text-black"
+                item._id === selected ? "text-white" : "text-black"
               } px-5 py-1 rounded-3xl text-[18px] ${
-                item.categoryName === selected ? "bg-[#EF4444]" : "bg-white"
+                item._id === selected ? "bg-[#EF4444]" : "bg-white"
               }`}
               key={index}
-              onClick={() => handleClick(item.categoryName)}
+              onClick={() => handleClick(item._id)}
             >
               {item.categoryName}
             </Badge>
@@ -56,13 +77,17 @@ export const Catogories = () => {
           className="flex justify-self-end"
         />
       </div>
-
-      {selected === null && <Menu />}
       <div className="px-10 mt-10">
-        {selected === "Appetizers" && <Appetizers />}
-        {selected === "Salads" && <Salad />}
-        {selected === "Lunch favourites" && <LunchFav />}
-        {selected === "Main dishes" && <MainDishes />}
+        {filteredCategory.map((item) => {
+          return (
+            <div key={item._id} className="flex flex-col gap-9">
+              <AllFoodsCostumer
+                categoryId={item._id}
+                categoryName={item.categoryName}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
