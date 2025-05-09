@@ -28,22 +28,6 @@ export const Catogories = () => {
   const handleClick = (id: string | null) => {
     setSelected(id === selected ? null : id);
   };
-  // const filteredCategory = () => {
-  //   if (selected === null) {
-  //     return categoriess;
-  //   }
-  //   return categoriess.filter((item) => item._id == selected);
-  // };
-  // const filteredCategory = if(selected===null{
-  //   return categoriess
-  // }
-  // else{
-  // return categoriess.filter((item) => item._id == selected)
-  // });
-  // const filteredCategory =
-  //   selected === null
-  //     ? categoriess
-  //     : categoriess.filter((item) => item._id == selected);
   const filteredCategory = categoriess.filter((item) => {
     if (selected == null) {
       return true;

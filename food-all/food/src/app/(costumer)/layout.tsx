@@ -1,6 +1,19 @@
 import { Separator } from "@/components/ui/separator";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { CartSvg } from "./assets/CatsSvg";
+import { CartSvgWhite } from "./assets/CartWhiteSvg";
+import { Cart } from "./components/CartParent";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Order } from "./components/Order";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -40,9 +53,51 @@ export default function costumerLayout({
             <p className="text-[#71717A]">Add Location</p>
             <img src="Chevron Icon.png" alt="" />
           </div>
-          <div className="w-9 h-9 bg-white rounded-[100px] flex justify-center items-center">
-            <img src="shopping-cart.png" alt="" />
-          </div>
+          <Sheet>
+            <SheetTrigger>
+              <button className="w-9 h-9 flex justify-center items-center bg-white rounded-[9999px]">
+                <CartSvg />
+              </button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <div className="flex gap-6 px-8 py-8 flex-col">
+                  <SheetTitle className="flex gap-3 text-white">
+                    <CartSvgWhite />
+                    Order detail
+                  </SheetTitle>
+                  <div>
+                    <Tabs
+                      defaultValue="cart"
+                      className="w-[471px] h-[44px] flex gap-2 px-1 py-1 rounded-3xl border-none "
+                    >
+                      <TabsList>
+                        <TabsTrigger
+                          value="cart"
+                          className="w-[227.5px] rounded-3xl "
+                        >
+                          Cart
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="order"
+                          className="w-[227.5px] rounded-3xl"
+                        >
+                          Order
+                        </TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="cart">
+                        <Cart />
+                      </TabsContent>
+                      <TabsContent value="order">
+                        <Order />
+                      </TabsContent>
+                    </Tabs>
+                  </div>
+                </div>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
+
           <div className="w-9 h-9 bg-[#EF4444] rounded-[100px] flex justify-center items-center">
             <img src="user.png" alt="" />
           </div>

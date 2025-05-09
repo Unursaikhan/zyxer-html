@@ -9,7 +9,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { PlusRed } from "../assets/plusred";
 import { Button } from "@/components/ui/button";
-import { Cart } from "./Cart";
 import { CartDialog } from "./CartDialog";
 
 interface Food {
