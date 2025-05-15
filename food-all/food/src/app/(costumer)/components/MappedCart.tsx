@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 
 type CartItem = {
+  _id: string;
   foodName: string;
   ingredients: string;
   image: string;

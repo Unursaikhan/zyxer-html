@@ -11,15 +11,15 @@ const UserSchema = new Schema({
   },
   phoneNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   address: {
     type: String,
-    required: true,
+    required: false,
   },
   role: {
     type: String,
-    required: true,
+    required: false,
     enum: ["user", "admin"],
     default: "user",
   },
@@ -29,7 +29,7 @@ const UserSchema = new Schema({
   },
   isVerified: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   createdAt: {
     type: Date,

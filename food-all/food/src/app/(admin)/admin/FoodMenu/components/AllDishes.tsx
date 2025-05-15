@@ -75,7 +75,7 @@ export const AllDishes = ({
                         <PenSvg />
                       </div>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="w-[472px]">
                       <DialogHeader>
                         <DialogTitle className="mb-6">Dishes info</DialogTitle>
                         <DialogDescription>

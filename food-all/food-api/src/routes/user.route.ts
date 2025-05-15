@@ -3,6 +3,5 @@ import { getUsers } from "../controllers/users/get-users";
 import { createdUser } from "../controllers/users/create-user";
 
 const userRouter = Router();
-userRouter.get(`/`, getUsers).post(`/`, createdUser);
-// .put(`/`, editFood);
+userRouter.get(`/`, getUsers);
 export default userRouter;

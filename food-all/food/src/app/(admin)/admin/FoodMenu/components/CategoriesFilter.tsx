@@ -70,7 +70,7 @@ export const CatogoriesFilter = ({
               <Plus />
             </div>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="w-[472px]">
             <DialogHeader className="flex flex-col gap-6">
               <DialogTitle>Add new category</DialogTitle>
               <DialogDescription className="flex flex-col text-black gap-2 ">

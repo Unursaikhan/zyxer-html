@@ -46,7 +46,7 @@ export const AddFood = ({ category, categoryID }: AddfooProps) => {
             <Plus />
           </div>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="w-[472px]">
           <DialogHeader className="gap-6">
             <DialogTitle>Add new Dish to {category}</DialogTitle>
             <DialogDescription className="flex flex-col text-black text-[14px] font-medium gap-6">
