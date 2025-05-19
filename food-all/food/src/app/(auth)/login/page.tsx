@@ -15,19 +15,13 @@ import { useAuth } from "@/app/_providers/AuthProvider";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-type User = {
-  email: string;
-  password: string;
-  role: string;
-};
-
 const formSchema = z.object({
   email: z.string().min(2).max(50),
   password: z.string().min(2).max(20),
 });
 
 export default function Home() {
-  const { signIn } = useAuth();
+  const { user, signIn } = useAuth();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,7 +32,7 @@ export default function Home() {
   });
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const user: User | null = await signIn(values.email, values.password);
+      await signIn(values.email, values.password);
       if (!user) return;
 
       if (user.role === "admin") {
@@ -111,7 +105,7 @@ export default function Home() {
                   )}
                 />
                 <button className="w-full h-9 bg-black text-white hover:bg-[#71717a] rounded-2xl">
-                  Let's Go
+                  Let&apos;s Go
                 </button>
               </form>
             </Form>
@@ -122,7 +116,9 @@ export default function Home() {
           </div>
 
           <div className="w-full h-6 flex gap-3 justify-center ">
-            <p className="text-[16px] text-[#71717a]">Don't have an account?</p>
+            <p className="text-[16px] text-[#71717a]">
+              Don&apos;t have an account?
+            </p>
             <Link href="/signup" className="text-[16px] text-[#2563eb]">
               Sign up
             </Link>

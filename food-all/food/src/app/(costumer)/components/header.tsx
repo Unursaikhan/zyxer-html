@@ -1,7 +1,12 @@
+"use client";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -11,8 +16,11 @@ import { CartSvg } from "../assets/CatsSvg";
 import { CartSvgWhite } from "../assets/CartWhiteSvg";
 import { Cart } from "./Cart";
 import { Orders } from "./Order";
+import { useAuth } from "@/app/_providers/AuthProvider";
+import { Button } from "@/components/ui/button";
 
 export const HeaderSignedIn = () => {
+  const { user, signOut } = useAuth();
   return (
     <div className="bg-[#18181B] w-[1440px] h-[68px] px-22 flex items-center justify-between">
       <div className="flex gap-x-4 items-center">
@@ -79,10 +87,19 @@ export const HeaderSignedIn = () => {
             </SheetHeader>
           </SheetContent>
         </Sheet>
-
-        <div className="w-9 h-9 bg-[#EF4444] rounded-[100px] flex justify-center items-center">
-          <img src="user.png" alt="" />
-        </div>
+        <Popover>
+          <PopoverTrigger>
+            <div className="w-9 h-9 bg-[#EF4444] rounded-[100px] flex justify-center items-center">
+              <img src="user.png" alt="" />
+            </div>
+          </PopoverTrigger>
+          <PopoverContent>
+            {user?.email}
+            <Button className="w-full" onClick={signOut}>
+              SignOut
+            </Button>
+          </PopoverContent>
+        </Popover>
         <div></div>
       </div>
     </div>

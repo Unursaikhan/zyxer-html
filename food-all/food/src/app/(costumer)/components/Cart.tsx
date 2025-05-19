@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import { Payment } from "./Payment";
 
 type CartItem = {
+  _id: string;
   foodName: string;
   ingredients: string;
   image: string;
   quantity: number;
-  price: string;
+  price: number;
 };
 export const Cart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -26,7 +27,7 @@ export const Cart = () => {
   }, []);
 
   const calculateTotalAmount = cart.reduce((total, item) => {
-    return total + parseFloat(item.price) * item.quantity;
+    return total + item.price * item.quantity;
   }, 0);
 
   const handleQuantityChange = (foodName: string, newQuantity: number) => {
@@ -43,9 +44,10 @@ export const Cart = () => {
         <div className="w-[439px] h-[392px] flex flex-col gap-5 overflow-scroll">
           {cart.map((item) => (
             <MapedCart
+              key={item._id}
               item={item}
               onRemove={handleRemove}
-              onQuantity={handleQuantityChange}
+              onQuantityChange={handleQuantityChange}
             />
           ))}
         </div>

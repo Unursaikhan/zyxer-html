@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const HeaderSignedOut = () => {
   return (
     <div className="bg-[#18181B] w-[1440px] h-[68px] px-22 flex items-center justify-between">
@@ -14,9 +16,12 @@ export const HeaderSignedOut = () => {
           <div className="text-white">Swift delivery</div>
         </div>
       </div>
-      <div className="flex gap-[14px]">
+      <Link
+        href={"/login"}
+        className="flex gap-[14px] bg-red-500 w-8 h-8 p-2 rounded-3xl"
+      >
         <img src="user.png" alt="" />
-      </div>
+      </Link>
     </div>
   );
 };

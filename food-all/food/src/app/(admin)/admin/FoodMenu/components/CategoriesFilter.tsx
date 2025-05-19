@@ -9,10 +9,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus } from "../assets/plus";
+import { CategoryType } from "./categoriesAdmin";
 interface CategoriesFilterProps {
   selected: string | null;
   setSelected: (category: string | null) => void;
-  categoriess: any[];
+  categoriess: CategoryType[];
   countFoodsInCategory: (category: string) => number;
   newCategory: string;
   setNewCategory: (name: string) => void;
@@ -20,6 +21,7 @@ interface CategoriesFilterProps {
   error: string;
   categorySuccess: boolean;
 }
+
 export const CatogoriesFilter = ({
   selected,
   setSelected,

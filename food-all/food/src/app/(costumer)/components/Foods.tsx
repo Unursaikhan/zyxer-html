@@ -1,15 +1,8 @@
 "use client";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import axios from "axios";
+
 import { useEffect, useState } from "react";
-import { PlusRed } from "../assets/plusred";
-import { Button } from "@/components/ui/button";
 import { CartDialog } from "./CartDialog";
+import { api } from "@/axios/indes";
 
 interface Food {
   _id: string;
@@ -27,23 +20,12 @@ type Category = {
   categoryName: string;
 };
 
-type CartItem = {
-  foodName: string;
-  ingredients: string;
-  image: string;
-  quantity: number;
-  price: string;
-};
-
 export const AllFoodsCostumer = ({ categoryName, categoryId }: Category) => {
   const [foods, setFoods] = useState<Food[]>([]);
-  const [selectedFood, setSelectedFood] = useState<Food | null>(null);
 
   const getFood = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3001/food?categoryId=${categoryId}`
-      );
+      const res = await api.get(`/food?categoryId=${categoryId}`);
       setFoods(res.data.foods);
     } catch (error) {
       console.log(error);

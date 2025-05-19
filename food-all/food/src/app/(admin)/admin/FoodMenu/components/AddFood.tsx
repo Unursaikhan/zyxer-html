@@ -11,7 +11,7 @@ import {
 import { Plus } from "../assets/plus";
 import { ImageSvg } from "../assets/Imagesvg";
 import { useState } from "react";
-import axios from "axios";
+import { api } from "@/axios/indes";
 type AddfooProps = {
   category: string;
   categoryID: string;
@@ -23,7 +23,7 @@ export const AddFood = ({ category, categoryID }: AddfooProps) => {
   const [newIngredients, setNewIngredients] = useState("");
   const addFood = async () => {
     try {
-      const res = await axios.post("http://localhost:3001/food", {
+      const res = await api.post("/food", {
         foodname: newFoodName,
         price: newPrice,
         image: "./url",

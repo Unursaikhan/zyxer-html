@@ -1,16 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Plus } from "../assets/plus";
-import { ImageSvg } from "../assets/Imagesvg";
-import { AddFood } from "./AddFood";
 interface Food {
   _id: string;
   foodname: string;

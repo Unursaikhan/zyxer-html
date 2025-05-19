@@ -1,4 +1,4 @@
-import { any, z } from "zod";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -15,14 +15,14 @@ import { Button } from "@/components/ui/button";
 import { Trash } from "../assets/trashsvg";
 import { EditCategory } from "./EditCategory";
 import { useState } from "react";
-import axios from "axios";
+import { api } from "@/axios/indes";
 
 interface Category {
   _id: string;
   categoryName: string;
 }
 
-interface Food {
+export interface Food {
   _id: string;
   foodname: string;
   price: number;
@@ -62,14 +62,14 @@ export const EditFood = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       foodname: foodItem.foodname,
-      price: foodItem.price,
+      price: String(foodItem.price),
       ingredients: foodItem.ingredients,
     },
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.put("http://localhost:3001/food", {
+      const res = await api.put(`/food`, {
         foodId: foodItem._id,
         foodname: values.foodname,
         price: Number(values.price),

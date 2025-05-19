@@ -1,6 +1,4 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,15 +7,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ImageSvg } from "../assets/Imagesvg";
 import { AddFood } from "./AddFood";
 import { PenSvg } from "../assets/pensvg";
-
-import { useState } from "react";
-import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
 import { EditFood } from "./EditFood";
 
 interface Food {

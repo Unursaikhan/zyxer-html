@@ -4,7 +4,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
@@ -18,6 +17,8 @@ export const Payment = ({ calculateTotal }: PaymentProps) => {
   const [shipping, setShipping] = useState(15);
   const [isopen, setisOpen] = useState(false);
   const paymentTotal = calculateTotal + shipping;
+  console.log(setShipping);
+
   return (
     <div className="w-[471px] h-[276px] flex flex-col gap-5 px-4 py-4 bg-white rounded-[20px] mt-6">
       <p className="font-semibold text-5">Payment info</p>

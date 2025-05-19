@@ -1,34 +1,36 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Plus } from "../assets/plus";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { ImageSvg } from "../assets/Imagesvg";
 import { CatogoriesFilter } from "./CategoriesFilter";
 import { AllDishes } from "./AllDishes";
 import { SelectedCategory } from "./SelectedCategory";
-
+import { api } from "@/axios/indes";
+export type CategoryType = {
+  _id: string;
+  categoryName: string;
+};
+export type FoodType = {
+  _id: string;
+  foodname: string;
+  price: number;
+  ingredients: string;
+  image: string;
+  category: {
+    categoryName: string;
+    _id: string;
+  };
+};
 export const CategoriesAdmin = () => {
   const [selected, setSelected] = useState<string | null>("All Dishes");
-  const [foods, setFoods] = useState<any[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [categoriess, setCategoriess] = useState<any[]>([]);
+  const [foods, setFoods] = useState<FoodType[]>([]);
+  const [categoriess, setCategoriess] = useState<CategoryType[]>([]);
   const [newCategory, setNewCategory] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [categorySuccess, setCategorySuccess] = useState<boolean>(false);
   const postCategory = async () => {
     const categoryExists = categoriess.some(
-      (existingCategory: any) =>
+      (existingCategory) =>
         existingCategory.categoryName.toLowerCase() ===
         newCategory.toLowerCase()
     );
@@ -42,7 +44,7 @@ export const CategoriesAdmin = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3001/category", {
+      const response = await api.post("/category", {
         categoryName: newCategory,
       });
       if (response.status === 200 || response.status === 201) {
@@ -60,7 +62,7 @@ export const CategoriesAdmin = () => {
 
   const getCategories = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/category");
+      const res = await api.get("/category");
       setCategoriess(res.data.categories);
       console.log(res);
     } catch (error) {
@@ -74,40 +76,28 @@ export const CategoriesAdmin = () => {
 
   const getFood = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/food");
+      const res = await api.get("/food");
       setFoods(res.data.foods);
-      const uniqueCategories: any = [
-        ...new Set(
-          res.data.foods.map((food: any) => food.category.categoryName)
-        ),
-      ];
-      setCategories(uniqueCategories);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log("categories", categories);
 
   useEffect(() => {
     getFood();
   }, []);
-
-  const handleClick = (id: string | null) => {
-    setSelected(id === selected ? null : id);
-  };
-
   const filterFoodsByCategory = (category: string) => {
     if (category === "All Dishes") {
       return foods;
     }
-    return foods.filter((food: any) => food.category.categoryName === category);
+    return foods.filter((food) => food.category.categoryName === category);
   };
 
   const countFoodsInCategory = (category: string) => {
     if (category === "All Dishes") {
       return foods.length;
     }
-    return foods.filter((food: any) => food.category.categoryName === category)
+    return foods.filter((food) => food.category.categoryName === category)
       .length;
   };
 

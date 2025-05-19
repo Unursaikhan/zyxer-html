@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 
 import { AllFoodsCostumer } from "./Foods";
 import { Badge } from "@/components/ui/badge";
-import axios from "axios";
-import { number } from "zod";
+
+import { api } from "@/axios/indes";
+import { CategoryType } from "@/app/(admin)/admin/FoodMenu/components/categoriesAdmin";
 
 export const Catogories = () => {
   const [selected, setSelected] = useState<string | null>(null);
-  const [categoriess, setCategoriess] = useState<any[]>([]);
-  const [quantity, setQuantity] = useState<number>(1);
+  const [categoriess, setCategoriess] = useState<CategoryType[]>([]);
   const getCategories = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/category");
+      const res = await api.get("/category");
       setCategoriess(res.data.categories);
       console.log(res);
     } catch (error) {

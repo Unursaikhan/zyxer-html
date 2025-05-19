@@ -14,9 +14,9 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { api } from "@/axios/indes";
 const formSchema = z.object({
   email: z
     .string()
@@ -50,7 +50,7 @@ export default function Home() {
     password: string;
   }) => {
     try {
-      const response = await axios.post("http://localhost:3001/auth/sign-up", {
+      const response = await api.post("/auth/sign-up", {
         email,
         password,
       });
@@ -126,7 +126,7 @@ export default function Home() {
                   type="submit"
                   className="w-full h-9 bg-black text-white hover:bg-[#71717a] rounded-2xl"
                 >
-                  Let's Go
+                  Let&apos;s Go
                 </button>
                 {signUpSuccess && (
                   <p className="text-green-600 text-sm text-center">

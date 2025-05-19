@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+
 import {
   Form,
   FormControl,
@@ -80,7 +80,9 @@ export default function Home() {
           </div>
 
           <div className="w-full h-6 flex gap-3 justify-center ">
-            <p className="text-[16px] text-[#71717a]">Don't have an account?</p>
+            <p className="text-[16px] text-[#71717a]">
+              Don&apos;t have an account?
+            </p>
             <p className="text-[16px] text-[#2563eb]">Sign up</p>
           </div>
         </div>

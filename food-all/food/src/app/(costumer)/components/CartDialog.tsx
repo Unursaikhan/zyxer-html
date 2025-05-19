@@ -12,6 +12,7 @@ import { MinusBlack } from "../assets/minusblack";
 import { X } from "../assets/Xsvg";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 type CartItem = {
   foodName: string;
   ingredients: string;
@@ -45,10 +46,12 @@ export const CartDialog = ({ foodItem }: FoodItemProps) => {
       ingredients: foodItem.ingredients,
       quantity: quantity,
     };
+    console.log(cart);
 
     const stored = JSON.parse(localStorage.getItem("cart") || "[]");
     const UpdatedFood = [...stored, newFood];
     localStorage.setItem("cart", JSON.stringify(UpdatedFood));
+    toast.success("amjilttai nemlee");
   };
 
   return (
