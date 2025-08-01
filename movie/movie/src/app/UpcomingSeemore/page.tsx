@@ -3,17 +3,6 @@ import Link from "next/link";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Footer } from "../_components/Footer";
-import { Navigation } from "../_components/Navigation";
-
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { Movie } from "../_components/Upcoming";
 import { Pagg } from "./_components/Pagnition";
 const ACCESS_TOKEN =
